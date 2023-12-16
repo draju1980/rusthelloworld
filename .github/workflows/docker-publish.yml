@@ -25,6 +25,7 @@ jobs:
       with:
         username: ${{ github.repository_owner }}
         token: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
         image: ${{ github.repository_owner }}/helloworld
         tags: latest
         dockerfile: Dockerfile
