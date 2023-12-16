@@ -13,7 +13,7 @@ COPY ./Cargo.toml ./Cargo.toml
 COPY ./src ./src
 
 # 5. Build for release.
-RUN cargo build --release
+RUN cargo build
 
 COPY ./target/release/deps/helloworld* ./helloworld
 
