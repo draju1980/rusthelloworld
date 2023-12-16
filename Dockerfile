@@ -14,6 +14,8 @@ COPY ./src ./src
 
 # 5. Build for release.
 RUN cargo build --release
-RUN cargo install --path .
+
+COPY ./target/release/deps/helloworld* ./helloworld
+
 
 CMD ["helloworld"]
