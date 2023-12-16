@@ -20,9 +20,12 @@ jobs:
       run: cargo build --verbose
     - name: Run tests
       run: cargo test --verbose
-    # - name: Build Docker image
-    #   run: docker build -t docker.pkg.github.com/draju1980/rusthelloworld/helloworld:VERSION .
-    # - name: Login to GitHub Docker Registry
-    #   run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-    # - name: Push Docker image
-    #   run: docker push docker.pkg.github.com/draju1980/rusthelloworld/helloworld:VERSION
+    - name: publish docker image
+      uses: flamestro/build-push-github-action@v1.7.4
+      with:
+        username: ${{ github.repository_owner }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        image: ${{ github.repository_owner }}/rust-docker-action
+        tags: latest
+        
