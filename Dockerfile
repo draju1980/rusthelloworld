@@ -1,11 +1,12 @@
-# Rust as the base image
-FROM rust:1.52.1
+FROM rust:1.67 AS build
+COPY . .
+RUN rustup target add x86_64-unknown-linux-musl
+RUN cargo install --path . --target x86_64-unknown-linux-musl
 
-# 2. Copy the files in your machine to the Docker image
-COPY ./ ./
+FROM alpine:3.16.0 AS runtime
+COPY --from=build /usr/local/cargo/bin/myapp /usr/local/bin/myapp
 
-# Build your program for release
-RUN cargo build --release
+FROM runtime as action
+COPY entrypoint.sh /entrypoint.sh
 
-# Run the binary
-CMD ["./target/release/helloworld"]
+ENTRYPOINT [ /entrypoint.sh ]
