@@ -1,10 +1,11 @@
 # Rust as the base image
 FROM rust:1.52.1
 
-# Create a new empty shell project
-RUN USER=root cargo new --bin helloworld
+# 2. Copy the files in your machine to the Docker image
+COPY ./ ./
 
-COPY ./target/release/deps/helloworld* ./helloworld
+# Build your program for release
+RUN cargo build --release
 
-
-CMD ["helloworld"]
+# Run the binary
+CMD ["./target/release/helloworld"]
