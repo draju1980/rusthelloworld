@@ -27,3 +27,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         image: ${{ github.repository_owner }}/rust-helloworld
         tags: latest
+        dockerfile: /var/lib/docker/tmp/buildkit-mount4006106312/Dockerfile
