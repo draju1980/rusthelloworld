@@ -25,6 +25,6 @@ jobs:
       with:
         username: ${{ github.repository_owner }}
         token: ${{ secrets.GITHUB_TOKEN }}
-        image: ${{ github.repository_owner }}/rust-helloworld
+        image: ${{ github.repository_owner }}/helloworld
         tags: latest
         dockerfile: Dockerfile
