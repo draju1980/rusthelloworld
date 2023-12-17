@@ -1,14 +1,9 @@
-FROM rust:1.67 AS build
+FROM rust:1.61.0 as builder
+WORKDIR /usr/src/myapp
 COPY . .
-RUN rustup target add x86_64-helloworld-linux-musl
-RUN cargo install --path . --target x86_64-helloworld-linux-musl
-
-FROM alpine:3.16.0 AS runtime
-COPY --from=build /usr/local/cargo/bin/helloworld /usr/local/bin/helloworld
-
-FROM runtime as action
-COPY entrypoint.sh /entrypoint.sh
-
+RUN cargo install --path .
+FROM debian:buster-slim
+RUN apt-get update & apt-get install -y extra-runtime-dependencies & rm -rf /var/lib/apt/lists/*
+COPY --from=builder /usr/local/cargo/bin/myapp /usr/local/bin/myapp
 EXPOSE 8080
-
-ENTRYPOINT [ /entrypoint.sh ]
+CMD ["myapp"]
