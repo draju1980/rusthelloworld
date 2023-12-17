@@ -9,4 +9,6 @@ COPY --from=build /usr/local/cargo/bin/myapp /usr/local/bin/myapp
 FROM runtime as action
 COPY entrypoint.sh /entrypoint.sh
 
+EXPOSE 8080
+
 ENTRYPOINT [ /entrypoint.sh ]
